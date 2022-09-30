@@ -3,9 +3,14 @@ import discord
 import os
 import requests
 import json
+import rsa
+from dotenv import load_dotenv
+import config
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
+
+token = config.TOKEN;
 
 def get_quote():
   response = requests.get("https://zenquotes.io/api/random")
@@ -21,8 +26,6 @@ def moedas_price():
     moeda3 = json_data["BTCBRL"]['name'] + " -- Máxima: " + (json_data["BTCBRL"]['high'] )+ " -- Mínima: " + (json_data["BTCBRL"]['low']) 
     moedas = f'{moeda1}  {os.linesep}{moeda2}  {os.linesep}{moeda3}'
     return(moedas)
-
-
 
 @client.event
 async def on_ready():
@@ -51,7 +54,6 @@ async def on_member_join(member):
     )
 
 
-
-client.run('MTAyNTE0MzM0ODM2Njk0NjM1NA.Gmf8VS.FDy5BtCPmNEpe2c1a1CvoAt8rOQzv8MGyxwtQw')
+client.run(token)
  
 
