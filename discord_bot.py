@@ -1,4 +1,3 @@
-import os
 import discord
 import os
 import requests
@@ -32,20 +31,20 @@ def all_currency_price():
 def last_month_usd_prices():
     response = requests.get("https://economia.awesomeapi.com.br/json/daily/USD-BRL/30")
     json_data = json.loads(response.text)   
-    currency = np.empty(30)
-    currency2 = np.empty(30)
+    currency_high = np.empty(30)
+    currency_low = np.empty(30)
     for i in range(0,30):
-        currency[i] = json_data[i]['high']
+        currency_high[i] = json_data[i]['high']
     for i in range(0,30):
-        currency2[i] = json_data[i]['low']
+        currency_low[i] = json_data[i]['low']
 
     range_days = np.empty(30)
     for i in range (0,30):
         range_days[i] = (-i)
 
     plt.clf()
-    plt.plot(range_days,currency, label="máxima")
-    plt.plot(range_days,currency2, label="mínima")
+    plt.plot(range_days,currency_high, label="máxima")
+    plt.plot(range_days,currency_low, label="mínima")
     plt.title('USD-BRL price - Last 30 days')
     plt.xlabel('Last 30 days')
     plt.ylabel('USD-BRL Price')
@@ -57,20 +56,20 @@ def last_month_usd_prices():
 def last_month_eur_prices():
     response = requests.get("https://economia.awesomeapi.com.br/json/daily/EUR-BRL/30")
     json_data = json.loads(response.text)   
-    currency = np.empty(30)
-    currency2 = np.empty(30)
+    currency_high = np.empty(30)
+    currency_low = np.empty(30)
     for i in range(0,30):
-        currency[i] = json_data[i]['high']
+        currency_high[i] = json_data[i]['high']
     for i in range(0,30):
-        currency2[i] = json_data[i]['low']
+        currency_low[i] = json_data[i]['low']
  
     range_days = np.empty(30)
     for i in range (0,30):
         range_days[i] = (-i)
         
     plt.clf()
-    plt.plot(range_days,currency, label = "máxima")
-    plt.plot(range_days,currency2, label = "mínima")
+    plt.plot(range_days,currency_high, label = "máxima")
+    plt.plot(range_days,currency_low, label = "mínima")
     plt.title('EUR-BRL price - Last 30 days')
     plt.xlabel('Last 30 days')
     plt.ylabel('EUR-BRL Price')    
@@ -144,10 +143,6 @@ async def on_member_join(member):
     await member.send(
         f'Olá {member.name}, bem vindo ao server! Somos um bot multi funcional, com foco em alguns comandos de cotação das principais moedas internacionais do mercado. Qualquer duvida digite $ajuda .'
     )
-
-
-    
-
 
 client.run(token)
  
